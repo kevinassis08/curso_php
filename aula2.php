@@ -46,24 +46,29 @@ echo "<br>";
 
 // Testa se a pessoa pode fazer a carteira de motorista
 // Precisa ser maior de 18 anos, e ter mais de R$ 1.000,00 na carteira
-$idadePessoa=17;
-$dinheiroNaCarteira=1000;
+$idadePessoa=16;
+$dinheiroNaCarteira=000;
 
 
 if($idadePessoa >= 18 && $dinheiroNaCarteira >= 1000){
     echo "parabéns, você pode fazer a carteira de motorista";
 }
-elseif($idadePessoa <= 17 && $dinheiroNaCarteira <= 1000){
-    echo "voce nao pode fazer";
+elseif($idadePessoa < 18 && $dinheiroNaCarteira >= 1000){
+    echo "voce nao tem idade suficiente para fazer a carteira";
 }
-elseif($idadePessoa >= 18 && $dinheiroNaCarteira <= 900){
+elseif($idadePessoa >= 18 && $dinheiroNaCarteira < 1000){
     echo "voce nao tem dinheiro suficiente na carteira";
+}
+else{
+    echo "voce nao tem idade nem dinheiro suficiente para fazer a carteira";
 }
 
 //falta fazer a validação da idade e do dinheiro
 //se não tiver idade informar que precisa ser maior de 18
 //se não tiver dinheiro precisa informar o valor de 1k
 //se não tiver idade e nem dinheiro informar.
+
+
 
 
 ?>
