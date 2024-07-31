@@ -77,4 +77,8 @@ $somadosimpares = 0;
         echo "$tabuada x $n = " . $tabuada*$n . "<br>";
         }
     
+<<<<<<< Updated upstream
     }  
+=======
+    }  
+>>>>>>> Stashed changes
