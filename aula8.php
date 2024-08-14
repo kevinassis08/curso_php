@@ -44,4 +44,3 @@ if ($lado1 == $lado2 && $lado2 == $lado3){
 }elseif ($lado2 == $lado3 && $lado2 != $lado1 ){
     echo "triangulo isóceles";
 }
-  
