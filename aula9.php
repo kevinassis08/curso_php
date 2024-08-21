@@ -111,7 +111,7 @@ echo "O resultado de: $valor1 $operador $valor2 = $resultado";
  */
 
 
-function banco($operacao, $saldoAtual){
+/*function banco($operacao, $saldoAtual){
 
     $saldo = $saldoAtual;
 
@@ -126,5 +126,43 @@ $valor = 100;
 $operacao = "deposito";
 
 $saldoAtual = banco($valor, $operacao, $saldoAtual);
-echo "Extrato: $valor $operacao = $saldoAtual<br>";
+echo "Extrato: $valor $operacao = $saldoAtual<br>";*/
 
+function banco($valor, $operacao, &$saldoAtual) {
+    
+    $mensagens = "";
+      
+      if ($operacao == "deposito") {
+          $saldoAtual += $valor; // Adiciona o valor ao saldo atual
+          $mensagens = "Depósito de $valor realizado; Saldo atual: $saldoAtual";
+      } elseif ($operacao == "saque") {
+          $saldoAtual -= $valor; // Subtrai o valor do saldo atual
+          $mensagens = "Saque de $valor realizado; Saldo atual: $saldoAtual";
+      } else {
+          $mensagens = "Operação inválida.";
+      }
+      return $mensagens; 
+  }
+  echo "<br>";
+
+  $saldoAtual = 500;
+  $valor = 250;
+  
+  echo "<br>";
+
+  // depósito
+  $operacao = "deposito";
+  $mensagens = banco($valor, $operacao, $saldoAtual);
+  echo "$mensagens<br>";
+  
+  echo "<br>";
+
+  // saque
+  $operacao = "saque";
+  $mensagens = banco($valor, $operacao, $saldoAtual);
+  echo "$mensagens<br>";
+
+
+
+
+  
