@@ -1,16 +1,20 @@
-
 <?php
 
 require '../database/Conexao.php';
 
-class UsuarioModel extends BaseModel {
+class EnderecoModel extends BaseModel {
 
-    private $table = 'Usuario';
-    
+    private $table = 'endereco';
+
     private $fields = [
-        'cpf',
-        'email',
-        'senha',
+        'rua',
+        'bairro',
+        'numero',
+        'cep',
+        'complemento',
+        'cidade',
+        'estado',
+        'id_pessoa',
     ];
 
     public function create($values) {

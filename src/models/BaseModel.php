@@ -1,7 +1,10 @@
 <?php
 
+require_once "../database/Conexao.php";
+
 abstract class BaseModel {
 
+    private $conexao = null;
     public $fieldsSTR = '';
     public $valuesSTR ='';
 
@@ -12,6 +15,12 @@ abstract class BaseModel {
         'data_criacao',
         'data_atualizacao',
     ];
+
+    public function __construct()
+    {
+        global $conexao; // acessamos (global) a variavel $conexao do arquivo
+        $this->conexao = $conexao;
+    }
 
     public function createAdjust($fields, $values) {
 
@@ -39,5 +48,27 @@ abstract class BaseModel {
 
         // remove a virgula extra no final.
         $this->fieldsSTR = str_replace(',', '', $this->fieldsSTR, -1);
+    }
+
+    private function getData($result) {
+
+        $dados = [];
+
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+
+            }
+        }
+
+        return $dados;
+    }
+
+    public function execute($sql)
+    {
+        $result = $this->conexao->query($sql);
+
+        $result = $this->getData($result);
+
+        return $result ?? [];
     }
 }
