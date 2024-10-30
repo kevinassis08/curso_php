@@ -24,47 +24,76 @@ abstract class BaseModel {
 
     public function createAdjust($fields, $values) {
 
-        $this->fieldsSTR = implode(',', $fields) . ", excluido"; // cpf, email, senha, excluido
+        $this->fieldsSTR = '';
+
+        $this->fieldsSTR = implode(',', $fields); // cpf, email, senha, excluido
 
         foreach($values as $key => $value) {
-            $this->valuesSTR .= "'{$value[$key]}',";
+            $this->valuesSTR .= "'{$value}',";
             // cpf = '123456789', email = 'novoEmail@trallala.com', senha = '1234', excluido = '0',
         }
 
         // remove a virgula extra no final.
-        $this->valuesSTR = str_replace(',', '', $this->valuesSTR, -1);
+        $isvirgula = substr($this->fieldsSTR , -1) === ",";
+
+        if ($isvirgula) {
+             $this->fieldsSTR = substr($this->fieldsSTR, 0, -1);
+        }
+         
+        $isvirgula = substr($this->valuesSTR , -1) === ",";
+
+        if ($isvirgula) {
+             $this->valuesSTR = substr($this->valuesSTR, 0, -1);
+        }
+
+      
+      
     }
 
     public function readAdjust($fields) {
-        $this->fieldsSTR = array_merge($this->fieldsCommon, $fields) ;
+       
+        $arrayfields = array_merge($this->fieldsCommon, $fields) ;
+        $this->fieldsSTR = implode(",", $arrayfields);
+
     }
 
     public function updateAdjust($values) {
 
+        $this->fieldsSTR = '';
+
         foreach($values as $key => $value) {
-            $this->fieldsSTR .= "$key = '{$value[$key]}',";
+            $this->fieldsSTR .= "{$key} = '{$value}',";
             // cpf = '123456789', email = 'novoEmail@trallala.com', senha = '1234', excluido = '0',
         }
 
         // remove a virgula extra no final.
-        $this->fieldsSTR = str_replace(',', '', $this->fieldsSTR, -1);
+        $isvirgula = substr($this->fieldsSTR , -1) === ",";
+
+        if ($isvirgula) {
+             $this->fieldsSTR = substr($this->fieldsSTR, 0, -1);
+        }
+      
     }
 
     private function getData($result) {
 
         $dados = [];
 
+        if (is_bool($result)) {
+            return $dados;
+        }
+
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-
+                $dados[] = $row;
             }
         }
 
-        return $dados;
     }
 
     public function execute($sql)
     {
+        
         $result = $this->conexao->query($sql);
 
         $result = $this->getData($result);
